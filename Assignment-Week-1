@@ -1,44 +1,45 @@
 <?php
 
-$data = [
-    'X' => [-9, 10, 100, -5, 0, 'A'],
-    'Y' => [13, 1, 'B'],
-    'Z' => [5, -3, 2, 800, 'C']
-];
+$data = <<<'EOD'
+X, -9\\\10\100\-5\\\0\\\\, A
+Y, \\13\\1\, B
+Z, \\\5\\\-3\\2\\\800, C
+EOD;
 
-// Menginisialisasi array untuk menyimpan hasil transformasi
+// Membagi data menjadi baris-baris
+$rows = explode("\n", $data);
+
 $result = [];
 
-// Melakukan iterasi pada setiap key-value dalam array $data
-foreach ($data as $key => $values) {
-    // Mengambil label dari setiap key-value
-    $label = array_pop($values);
-    $count = count($values);
+// Melakukan loop pada setiap baris
+foreach ($rows as $row) {
+    // Menghapus spasi di awal dan akhir baris
+    $row = trim($row);
     
-    // Melakukan iterasi pada setiap nilai dalam key-value
-    for ($i = 0; $i < $count; $i++) {
-        // Menyimpan baris hasil transformasi
-        $result[] = $key . ', ' . $values[$i] . ', ' . $label . ', ' . ($i + 1);
+    if (!empty($row)) {
+        // Membagi baris menjadi bagian-bagian yang terpisah oleh koma
+        $parts = explode(',', $row);
+        
+        // Mendapatkan nilai X, Y, dan Z
+        $letter = trim($parts[0]);
+        $values = explode('\\\\', trim($parts[1]));
+        $count = count($values);
+        
+        // Menyusun setiap nilai menjadi baris baru dalam hasil
+        for ($i = 0; $i < $count; $i++) {
+            $value = trim(str_replace('\\', '', $values[$i]));
+            
+            // Menyusun baris baru dengan format yang diinginkan
+            $newRow = $letter . ', ' . $value . ', ' . ($letter == 'X' ? 'A' : ($letter == 'Y' ? 'B' : 'C')) . ', ' . ($i + 1);
+            
+            // Menambahkan baris baru ke dalam hasil
+            $result[] = $newRow;
+        }
     }
 }
 
-// Mengurutkan hasil transformasi berdasarkan angka terkecil hingga terbesar
-usort($result, function ($a, $b) {
-    // Mendapatkan angka dari baris hasil transformasi
-    preg_match('/[0-9-]+/', $a, $matchesA);
-    preg_match('/[0-9-]+/', $b, $matchesB);
-    $numberA = intval($matchesA[0]);
-    $numberB = intval($matchesB[0]);
-    
-    // Mengurutkan berdasarkan angka terkecil hingga terbesar
-    if ($numberA == $numberB) {
-        return 0;
-    }
-    return ($numberA < $numberB) ? -1 : 1;
-});
-
-// Menampilkan output hasil transformasi yang telah diurutkan
-foreach ($result as $line) {
-    echo $line . "<br>";
+// Menampilkan hasil
+foreach ($result as $row) {
+    echo $row . "\n";
 }
 ?>
