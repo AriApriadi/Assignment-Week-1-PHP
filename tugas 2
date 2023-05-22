@@ -1,1 +1,606 @@
-<? php
+<?php
+
+// Class 1: User
+class UserName
+{
+    public $name;
+    public $email;
+
+    public function __construct($name, $email)
+    {
+        $this->name = $name;
+        $this->email = $email;
+    }
+
+    public function displayInfo()
+    {
+        echo "Name: " . $this->name . "<br>";
+        echo "Email: " . $this->email . "<br>";
+    }
+}
+
+
+// Class 3: FileManager
+class FileManager
+{
+    public static function readFile($filename)
+    {
+        $content = file_get_contents($filename);
+        return $content;
+    }
+
+    public static function writeFile($filename, $content)
+    {
+        file_put_contents($filename, $content);
+    }
+}
+
+// Class 4: SessionManager
+class SessionManager
+{
+    public static function setSession($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
+    public static function getSession($key)
+    {
+        return $_SESSION[$key];
+    }
+}
+
+// Class 5: StringManipulator
+class StringManipulator
+{
+    public static function reverseString($str)
+    {
+        return strrev($str);
+    }
+}
+
+// Usage example:
+
+// Variabel
+$name = "John Doe";
+$age = 25;
+
+// Konstanta
+define("PI", 3.14);
+
+// Operator
+$result = $age + 5;
+
+// Struktur Kondisi
+if ($result > 30) {
+    echo "The result is greater than 30<br>";
+} else {
+    echo "The result is less than or equal to 30<br>";
+}
+
+// Perulangan (Looping)
+for ($i = 1; $i <= 5; $i++) {
+    echo "Loop iteration: " . $i . "<br>";
+}
+
+// Function
+function square($num)
+{
+    return $num * $num;
+}
+
+echo "Square of 4: " . square(4) . "<br>";
+
+// Array
+$numbers = [1, 2, 3, 4, 5];
+echo "Second element of the array: " . $numbers[1] . "<br>";
+
+// GET dan POST
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $param = $_GET['param'];
+    echo "GET parameter: " . $param . "<br>";
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $param = $_POST['param'];
+    echo "POST parameter: " . $param . "<br>";
+}
+
+// Boolean
+$isTrue = true;
+$isFalse = false;
+
+// Integer
+$integer = 10;
+
+// Float
+$float = 3.14;
+
+// String
+$string = "Hello, World!";
+
+// Object
+$user = new UserName("Alice", "alice@example.com");
+$user->displayInfo();
+
+// Resource
+$resource = fopen("filename.txt", "r");
+
+// NULL
+$nullValue = null;
+
+// Operasi File
+$fileContent = FileManager::readFile("filename.txt");
+echo "File content: " . $fileContent . "<br>";
+
+// Session
+SessionManager::setSession("username", "john");
+$username = SessionManager::getSession("username");
+echo "Username from session: " . $username . "<br>";
+
+// Fungsi Built-in
+$reversedString = StringManipulator::reverseString("Hello");
+echo "Reversed string: " . $reversedString . "<br>";
+
+?>
+<?php
+
+class Calculator
+{
+    public function add($num1, $num2)
+    {
+        return $num1 + $num2;
+    }
+
+    public function subtract($num1, $num2)
+    {
+        return $num1 - $num2;
+    }
+
+    public function multiply($num1, $num2)
+    {
+        return $num1 * $num2;
+    }
+
+    public function divide($num1, $num2)
+    {
+        if ($num2 != 0) {
+            return $num1 / $num2;
+        } else {
+            return "Cannot divide by zero";
+        }
+    }
+}
+
+// Penggunaan contoh
+$calculator = new Calculator();
+
+// Operasi penjumlahan
+$result = $calculator->add(5, 3);
+echo "5 + 3 = " . $result . "<br>";
+
+// Operasi pengurangan
+$result = $calculator->subtract(10, 4);
+echo "10 - 4 = " . $result . "<br>";
+
+// Operasi perkalian
+$result = $calculator->multiply(6, 2);
+echo "6 * 2 = " . $result . "<br>";
+
+// Operasi pembagian
+$result = $calculator->divide(8, 2);
+echo "8 / 2 = " . $result . "<br>";
+
+$result = $calculator->divide(10, 0);
+echo "10 / 0 = " . $result . "<br>";
+
+?>
+<?php
+
+class MyClass
+{
+    // Fungsi tanpa parameter
+    public function sayHello()
+    {
+        echo "Hello!<br>";
+    }
+
+    // Fungsi dengan parameter
+    public function greet($name)
+    {
+        echo "Hello, " . $name . "!<br>";
+    }
+
+    // Fungsi dengan nilai kembalian
+    public function add($num1, $num2)
+    {
+        return $num1 + $num2;
+    }
+
+    // Fungsi dengan pengembalian objek
+    public function createPerson($name, $age)
+    {
+        return new Person($name, $age);
+    }
+
+    // Fungsi dengan argumen opsional
+    public function getFullName($firstName, $lastName = "")
+    {
+        if ($lastName != "") {
+            return $firstName . " " . $lastName;
+        } else {
+            return $firstName;
+        }
+    }
+}
+
+class Person
+{
+    public $name;
+    public $age;
+
+    public function __construct($name, $age)
+    {
+        $this->name = $name;
+        $this->age = $age;
+    }
+
+    public function displayInfo()
+    {
+        echo "Name: " . $this->name . "<br>";
+        echo "Age: " . $this->age . "<br>";
+    }
+}
+
+// Penggunaan contoh
+$myObj = new MyClass();
+
+$myObj->sayHello(); // Memanggil fungsi tanpa parameter
+
+$myObj->greet("John"); // Memanggil fungsi dengan parameter
+
+$result = $myObj->add(5, 3); // Memanggil fungsi dengan nilai kembalian
+echo "Result: " . $result . "<br>";
+
+$person = $myObj->createPerson("Alice", 25); // Memanggil fungsi dengan pengembalian objek
+$person->displayInfo();
+
+$fullName1 = $myObj->getFullName("John"); // Memanggil fungsi dengan argumen opsional
+echo "Full Name 1: " . $fullName1 . "<br>";
+
+$fullName2 = $myObj->getFullName("Jane", "Doe");
+echo "Full Name 2: " . $fullName2 . "<br>";
+
+?>
+<?php
+
+class MathUtils
+{
+    public static function square($num)
+    {
+        return $num * $num;
+    }
+
+    public static function cube($num)
+    {
+        return $num * $num * $num;
+    }
+
+    public static function factorial($num)
+    {
+        if ($num == 0 || $num == 1) {
+            return 1;
+        } else {
+            return $num * self::factorial($num - 1);
+        }
+    }
+}
+
+class StringManipulator2
+{
+    public static function reverse($str)
+    {
+        return strrev($str);
+    }
+
+    public static function countWords($str)
+    {
+        $words = explode(" ", $str);
+        return count($words);
+    }
+
+    public static function capitalize($str)
+    {
+        return ucwords($str);
+    }
+}
+
+class ArrayUtils
+{
+    public static function findMax($arr)
+    {
+        return max($arr);
+    }
+
+    public static function findMin($arr)
+    {
+        return min($arr);
+    }
+
+    public static function sum($arr)
+    {
+        return array_sum($arr);
+    }
+
+    public static function average($arr)
+    {
+        $count = count($arr);
+        if ($count > 0) {
+            return self::sum($arr) / $count;
+        } else {
+            return 0;
+        }
+    }
+}
+
+// Penggunaan contoh
+echo "Square of 4: " . MathUtils::square(4) . "<br>";
+echo "Cube of 3: " . MathUtils::cube(3) . "<br>";
+echo "Factorial of 5: " . MathUtils::factorial(5) . "<br>";
+
+echo "Reverse of 'Hello': " . StringManipulator2::reverse("Hello") . "<br>";
+echo "Word count of 'This is a sentence': " . StringManipulator2::countWords("This is a sentence") . "<br>";
+echo "Capitalized string of 'hello world': " . StringManipulator2::capitalize("hello world") . "<br>";
+
+$numbers = [4, 9, 2, 7, 5];
+echo "Maximum number: " . ArrayUtils::findMax($numbers) . "<br>";
+echo "Minimum number: " . ArrayUtils::findMin($numbers) . "<br>";
+echo "Sum of numbers: " . ArrayUtils::sum($numbers) . "<br>";
+echo "Average of numbers: " . ArrayUtils::average($numbers) . "<br>";
+
+?>
+<?php
+
+class User
+{
+    private $name;
+    private $email;
+
+    public function __construct($name, $email)
+    {
+        $this->name = $name;
+        $this->email = $email;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+}
+
+class FileManager2
+{
+    public static function readFile($filename)
+    {
+        if (file_exists($filename)) {
+            return file_get_contents($filename);
+        } else {
+            return "File not found";
+        }
+    }
+
+    public static function writeFile($filename, $content)
+    {
+        return file_put_contents($filename, $content);
+    }
+
+    public static function appendToFile($filename, $content)
+    {
+        return file_put_contents($filename, $content, FILE_APPEND);
+    }
+}
+
+function calculateBMI($weight, $height)
+{
+    $heightInMeters = $height / 100;
+    return $weight / ($heightInMeters * $heightInMeters);
+}
+
+function generateRandomNumber($min, $max)
+{
+    return rand($min, $max);
+}
+
+function isPalindrome($str)
+{
+    $reverse = strrev($str);
+    if ($str == $reverse) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Penggunaan contoh
+$user = new User("John Doe", "john@example.com");
+echo "Name: " . $user->getName() . "<br>";
+echo "Email: " . $user->getEmail() . "<br>";
+
+FileManager::writeFile("example.txt", "Hello, World!");
+
+echo FileManager::readFile("example.txt") . "<br>";
+
+echo "BMI: " . calculateBMI(70, 175) . "<br>";
+
+echo "Random Number: " . generateRandomNumber(1, 10) . "<br>";
+
+if (isPalindrome("radar")) {
+    echo "Palindrome";
+} else {
+    echo "Not a palindrome";
+}
+?>
+<?php
+class MyFunctions2
+{
+
+    // Fungsi untuk menghitung luas segitiga
+    public function calculateTriangleArea($base, $height)
+    {
+        $area = 0.5 * $base * $height;
+        return $area;
+    }
+
+    // Fungsi untuk menghitung luas trapesium
+    public function calculateTrapezoidArea($base1, $base2, $height)
+    {
+        $area = 0.5 * ($base1 + $base2) * $height;
+        return $area;
+    }
+
+    // Fungsi untuk menghitung volume balok
+    public function calculateRectangularVolume($length, $width, $height)
+    {
+        $volume = $length * $width * $height;
+        return $volume;
+    }
+
+    // Fungsi untuk menghitung volume tabung
+    public function calculateCylinderVolume($radius, $height)
+    {
+        $volume = pi() * $radius * $radius * $height;
+        return $volume;
+    }
+
+    // Fungsi untuk menghitung pangkat dua suatu bilangan
+    public function calculateSquare($number)
+    {
+        $square = $number * $number;
+        return $square;
+    }
+
+    // Fungsi untuk menghitung bilangan Fibonacci
+    public function generateFibonacci($n)
+    {
+        $fibonacci = [];
+        $fibonacci[0] = 0;
+        $fibonacci[1] = 1;
+
+        for ($i = 2; $i < $n; $i++) {
+            $fibonacci[$i] = $fibonacci[$i - 1] + $fibonacci[$i - 2];
+        }
+
+        return $fibonacci;
+    }
+}
+
+// Contoh penggunaan fungsi-fungsi dalam class
+$myFunctions = new MyFunctions2();
+echo "Luas segitiga dengan alas 6 dan tinggi 8 adalah " . $myFunctions->calculateTriangleArea(6, 8) . "<br>";
+echo "Luas trapesium dengan panjang alas atas 4, panjang alas bawah 7, dan tinggi 5 adalah " . $myFunctions->calculateTrapezoidArea(4, 7, 5) . "<br>";
+echo "Volume balok dengan panjang 3, lebar 4, dan tinggi 5 adalah " . $myFunctions->calculateRectangularVolume(3, 4, 5) . "<br>";
+echo "Volume tabung dengan jari-jari 2 dan tinggi 6 adalah " . $myFunctions->calculateCylinderVolume(2, 6) . "<br>";
+echo "Pangkat dua dari angka 9 adalah " . $myFunctions->calculateSquare(9) . "<br>";
+echo "10 bilangan Fibonacci pertama adalah " . implode(", ", $myFunctions->generateFibonacci(10)) . "<br>";
+
+
+class MyFunctions
+{
+
+    // Fungsi untuk menghitung luas persegi
+    public function calculateSquareArea($side)
+    {
+        $area = $side * $side;
+        return $area;
+    }
+
+    // Fungsi untuk menghitung luas lingkaran
+    public function calculateCircleArea($radius)
+    {
+        $area = pi() * $radius * $radius;
+        return $area;
+    }
+
+    // Fungsi untuk mengkonversi suhu dari Celsius ke Fahrenheit
+    public function celsiusToFahrenheit($celsius)
+    {
+        $fahrenheit = ($celsius * 9 / 5) + 32;
+        return $fahrenheit;
+    }
+
+    // Fungsi untuk mengkonversi suhu dari Fahrenheit ke Celsius
+    public function fahrenheitToCelsius($fahrenheit)
+    {
+        $celsius = ($fahrenheit - 32) * 5 / 9;
+        return $celsius;
+    }
+
+    // Fungsi untuk membalikkan urutan karakter dalam string
+    public function reverseString($string)
+    {
+        $reverseString = strrev($string);
+        return $reverseString;
+    }
+
+    // Fungsi untuk menghitung faktorial dari suatu angka
+    public function calculateFactorial($number)
+    {
+        $factorial = 1;
+        for ($i = $number; $i > 0; $i--) {
+            $factorial *= $i;
+        }
+        return $factorial;
+    }
+
+    // Fungsi untuk menghitung nilai maksimum dalam sebuah array
+    public function findMaxValue($array)
+    {
+        $maxValue = max($array);
+        return $maxValue;
+    }
+
+    // Fungsi untuk menggabungkan dua array menjadi satu array
+    public function mergeArrays($array1, $array2)
+    {
+        $mergedArray = array_merge($array1, $array2);
+        return $mergedArray;
+    }
+
+    // Fungsi untuk menghitung jumlah kata dalam sebuah string
+    public function countWords($string)
+    {
+        $wordCount = str_word_count($string);
+        return $wordCount;
+    }
+}
+
+// Contoh penggunaan fungsi-fungsi dalam class
+$myFunctions = new MyFunctions();
+echo "Luas persegi dengan sisi 5 adalah " . $myFunctions->calculateSquareArea(5) . "<br>";
+echo "Luas lingkaran dengan jari-jari 3 adalah " . $myFunctions->calculateCircleArea(3) . "<br>";
+echo "Konversi suhu 30 derajat Celsius ke Fahrenheit adalah " . $myFunctions->celsiusToFahrenheit(30) . "<br>";
+echo "Konversi suhu 86 derajat Fahrenheit ke Celsius adalah " . $myFunctions->fahrenheitToCelsius(86) . "<br>";
+echo "Urutan karakter dalam string 'Hello World!' setelah dibalik menjadi '" . $myFunctions->reverseString('Hello World!') . "'<br>";
+echo "Faktorial dari angka 5 adalah " . $myFunctions->calculateFactorial(5) . "<br>";
+
+$array = [2, 5, 1, 10, 8];
+echo "Nilai maksimum dalam array [2, 5, 1, 10, 8] adalah " . $myFunctions->findMaxValue($array) . "<br>";
+
+$array1 = [1, 2, 3];
+$array2 = [4, 5, 6];
+echo "Hasil penggabungan array [1, 2, 3] dan [4, 5, 6] adalah " . implode(", ", $myFunctions->mergeArrays($array1, $array2)) . "<br>";
+
+$string = "Ini adalah contoh string";
+echo "Jumlah kata dalam string 'Ini adalah contoh string' adalah " . $myFunctions->countWords($string) . "<br>";
