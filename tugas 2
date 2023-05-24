@@ -191,8 +191,6 @@ echo "8 / 2 = " . $result . "<br>";
 $result = $calculator->divide(10, 0);
 echo "10 / 0 = " . $result . "<br>";
 
-?>
-<?php
 
 class MyClass
 {
@@ -604,3 +602,466 @@ echo "Hasil penggabungan array [1, 2, 3] dan [4, 5, 6] adalah " . implode(", ", 
 
 $string = "Ini adalah contoh string";
 echo "Jumlah kata dalam string 'Ini adalah contoh string' adalah " . $myFunctions->countWords($string) . "<br>";
+
+
+if (isset($_GET['nama'])) {
+    $nama = $_GET['nama'];
+    echo "Halo, " . $nama . "! Ini adalah contoh GET function.";
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['pesan'])) {
+        $pesan = $_POST['pesan'];
+        echo "Pesan: " . $pesan . " (Ini adalah contoh POST function)";
+    }
+}
+
+
+for ($i = 1; $i <= 5; $i++) {
+    echo "Angka: " . $i . "<br>";
+}
+
+
+$PI = 3.14;
+echo "Nilai PI adalah: " . $PI;
+
+// Rumus menghitung luas persegi
+function luasPersegi($sisi)
+{
+    return $sisi * $sisi;
+}
+
+// Rumus menghitung luas persegi panjang
+function luasPersegiPanjang($panjang, $lebar)
+{
+    return $panjang * $lebar;
+}
+
+// Rumus menghitung luas segitiga
+function luasSegitiga($alas, $tinggi)
+{
+    return 0.5 * $alas * $tinggi;
+}
+
+// Rumus menghitung luas trapesium
+function luasTrapesium($sisiA, $sisiB, $tinggi)
+{
+    return ($sisiA + $sisiB) * $tinggi / 2;
+}
+
+// Rumus menghitung luas lingkaran
+function luasLingkaran($jariJari)
+{
+    return 3.14 * $jariJari * $jariJari;
+}
+
+// Rumus menghitung volume kubus
+function volumeKubus($sisi)
+{
+    return $sisi * $sisi * $sisi;
+}
+
+// Rumus menghitung volume balok
+function volumeBalok($panjang, $lebar, $tinggi)
+{
+    return $panjang * $lebar * $tinggi;
+}
+
+// Rumus menghitung volume tabung
+function volumeTabung($jariJari, $tinggi)
+{
+    return 3.14 * $jariJari * $jariJari * $tinggi;
+}
+
+// Rumus menghitung volume bola
+function volumeBola($jariJari)
+{
+    return 4 / 3 * 3.14 * $jariJari * $jariJari * $jariJari;
+}
+
+// Rumus menghitung bilangan faktorial
+function faktorial($n)
+{
+    if ($n <= 1) {
+        return 1;
+    } else {
+        return $n * faktorial($n - 1);
+    }
+}
+
+// Rumus menghitung persentase
+function persentase($nilai, $total)
+{
+    return ($nilai / $total) * 100;
+}
+
+// Rumus menghitung rata-rata
+function rataRata($data)
+{
+    $jumlah = array_sum($data);
+    $jumlahData = count($data);
+    return $jumlah / $jumlahData;
+}
+
+// Rumus menghitung nilai maksimum
+function nilaiMaksimum($data)
+{
+    return max($data);
+}
+
+// Rumus menghitung nilai minimum
+function nilaiMinimum($data)
+{
+    return min($data);
+}
+
+// Rumus menghitung median
+function median($data)
+{
+    sort($data);
+    $jumlahData = count($data);
+    $tengah = floor($jumlahData / 2);
+    if ($jumlahData % 2) {
+        return $data[$tengah];
+    } else {
+        return ($data[$tengah - 1] + $data[$tengah]) / 2;
+    }
+}
+
+// Rumus menghitung modus
+function modus($data)
+{
+    $counts = array_count_values($data);
+    $maxCount = max($counts);
+    $modus = array_keys($counts, $maxCount);
+    return $modus;
+}
+
+// Rumus menghitung pangkat
+function pangkat($angka, $pangkat)
+{
+    return pow($angka, $pangkat);
+}
+
+// Rumus menghitung akar kuadrat
+function akarKuadrat($angka)
+{
+    return sqrt($angka);
+}
+
+// Rumus menghitung logaritma
+function logaritma($angka, $basis)
+{
+    return log($angka, $basis);
+}
+
+// Rumus menghitung sin
+function sinus($sudut)
+{
+    return sin(deg2rad($sudut));
+}
+
+// Rumus menghitung cos
+function cosinus($sudut)
+{
+    return cos(deg2rad($sudut));
+}
+
+// Rumus menghitung tan
+function tangen($sudut)
+{
+    return tan(deg2rad($sudut));
+}
+
+// Contoh penggunaan rumus-rumus di atas
+echo "Luas persegi dengan sisi 5: " . luasPersegi(5) . "<br>";
+echo "Luas persegi panjang dengan panjang 4 dan lebar 6: " . luasPersegiPanjang(4, 6) . "<br>";
+echo "Luas segitiga dengan alas 8 dan tinggi 6: " . luasSegitiga(8, 6) . "<br>";
+echo "Luas trapesium dengan sisi A 4, sisi B 6, dan tinggi 5: " . luasTrapesium(4, 6, 5) . "<br>";
+echo "Luas lingkaran dengan jari-jari 7: " . luasLingkaran(7) . "<br>";
+echo "Volume kubus dengan sisi 3: " . volumeKubus(3) . "<br>";
+echo "Volume balok dengan panjang 4, lebar 5, dan tinggi 6: " . volumeBalok(4, 5, 6) . "<br>";
+echo "Volume tabung dengan jari-jari 3 dan tinggi 8: " . volumeTabung(3, 8) . "<br>";
+echo "Volume bola dengan jari-jari 5: " . volumeBola(5) . "<br>";
+echo "Faktorial dari 5: " . faktorial(5) . "<br>";
+
+$data = [3, 5, 2, 8, 4, 6, 7];
+echo "Persentase nilai 6 dari total 10: " . persentase(6, 10) . "%<br>";
+echo "Rata-rata dari data " . implode(", ", $data) . ": " . rataRata($data) . "<br>";
+echo "Nilai maksimum dari data " . implode(", ", $data) . ": " . nilaiMaksimum($data) . "<br>";
+echo "Nilai minimum dari data " . implode(", ", $data) . ": " . nilaiMinimum($data) . "<br>";
+echo "Median dari data " . implode(", ", $data) . ": " . median($data) . "<br>";
+echo "Modus dari data " . implode(", ", $data) . ": " . implode(", ", modus($data)) . "<br>";
+
+echo "5 pangkat 3: " . pangkat(5, 3) . "<br>";
+echo "Akar kuadrat dari 25: " . akarKuadrat(25) . "<br>";
+echo "Logaritma dari 100 dengan basis 10: " . logaritma(100, 10) . "<br>";
+echo "Sinus dari sudut 45 derajat: " . sinus(45) . "<br>";
+echo "Cosinus dari sudut 60 derajat: " . cosinus(60) . "<br>";
+echo "Tangen dari sudut 30 derajat: " . tangen(30) . "<br>";
+
+$namaFile = "data.txt";
+$file = fopen($namaFile, "r");
+
+if ($file) {
+    while (($line = fgets($file)) !== false) {
+        echo $line . "<br>";
+    }
+
+    fclose($file);
+} else {
+    echo "Gagal membuka file.";
+}
+
+$string = "Ini adalah contoh kalimat.";
+$jumlahKata = str_word_count($string);
+
+echo "Jumlah kata: " . $jumlahKata;
+
+$angka = [1, 2, 3, 4, 5];
+shuffle($angka);
+
+echo "Urutan acak: " . implode(", ", $angka);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama = $_POST["nama"];
+    $email = $_POST["email"];
+
+    echo "Halo, $nama! Email kamu adalah $email.";
+}
+
+$tanggal = date("d F Y");
+$waktu = date("H:i:s");
+
+echo "Tanggal: $tanggal<br>";
+echo "Waktu: $waktu";
+
+function faktorial1($n) {
+    if ($n <= 1) {
+        return 1;
+    } else {
+        return $n * faktorial1($n - 1);
+    }
+}
+
+$angka = 5;
+$hasilFaktorial = faktorial($angka);
+
+echo "Faktorial dari $angka: $hasilFaktorial";
+
+function divide($a, $b) {
+    if ($b == 0) {
+        throw new Exception("Tidak bisa membagi dengan nol!");
+    }
+
+    return $a / $b;
+}
+
+try {
+    $hasil = divide(10, 0);
+    echo "Hasil pembagian: $hasil";
+} catch (Exception $e) {
+    echo "Terjadi kesalahan: " . $e->getMessage();
+}
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
+$mail = new PHPMailer(true);
+
+try {
+    // Konfigurasi email
+    $mail->isSMTP();
+    $mail->Host = 'smtp.example.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'email@example.com';
+    $mail->Password = 'password';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
+
+    // Pengirim dan penerima
+    $mail->setFrom('email@example.com', 'Pengirim');
+    $mail->addAddress('recipient@example.com', 'Penerima');
+
+    // Konten email
+    $mail->Subject = 'Contoh Email';
+    $mail->Body = 'Ini adalah pesan email.';
+
+    // Kirim email
+    $mail->send();
+    echo 'Email berhasil dikirim!';
+} catch (Exception $e) {
+    echo 'Terjadi kesalahan saat mengirim email: ' . $mail->ErrorInfo;
+}
+
+$servername = "localhost";
+$username = "root";
+$password = "password";
+$dbname = "mydb";
+
+// Membuat koneksi
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Memeriksa koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Menjalankan query
+$sql = "SELECT id, nama, email FROM users";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Menampilkan hasil query
+    while ($row = $result->fetch_assoc()) {
+        echo "ID: " . $row["id"]. " - Nama: " . $row["nama"]. " - Email: " . $row["email"]. "<br>";
+    }
+} else {
+    echo "Tidak ada data.";
+}
+
+// Menutup koneksi
+$conn->close();
+
+
+session_start();
+
+// Menyimpan data ke session
+$_SESSION["username"] = "john.doe";
+$_SESSION["email"] = "john.doe@example.com";
+
+// Mengakses data dari session
+$username = $_SESSION["username"];
+$email = $_SESSION["email"];
+
+// Menampilkan data session
+echo "Username: " . $username . "<br>";
+echo "Email: " . $email;
+
+
+$ch = curl_init();
+
+// Konfigurasi URL dan opsi cURL
+curl_setopt($ch, CURLOPT_URL, "https://api.example.com/data");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+// Melakukan HTTP GET request
+$response = curl_exec($ch);
+
+// Menutup koneksi cURL
+curl_close($ch);
+
+// Menampilkan response
+echo $response;
+
+$string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+
+// Mencocokkan kata "ipsum" dalam string
+if (preg_match("/ipsum/", $string)) {
+    echo "Kata 'ipsum' ditemukan!";
+} else {
+    echo "Kata 'ipsum' tidak ditemukan.";
+}
+
+// Mengganti kata "dolor" dengan "sunt" dalam string
+$hasil = preg_replace("/dolor/", "sunt", $string);
+echo "Hasil: " . $hasil;
+
+
+// Membuat array data
+$data = [
+    "nama" => "John Doe",
+    "umur" => 30,
+    "pekerjaan" => "Developer"
+];
+
+// Mengubah array menjadi JSON
+$jsonData = json_encode($data);
+
+// Menampilkan data JSON
+echo $jsonData;
+
+// Mendapatkan data JSON dan mengubahnya menjadi array
+$receivedData = '{"nama":"Jane Smith","umur":25,"pekerjaan":"Designer"}';
+$dataArray = json_decode($receivedData, true);
+
+// Mengakses data dalam array
+echo "Nama: " . $dataArray["nama"];
+echo "Umur: " . $dataArray["umur"];
+echo "Pekerjaan: " . $dataArray["pekerjaan"];
+
+$fruits = array("Apel", "Jeruk", "Mangga");
+
+// Menampilkan semua elemen dalam array
+foreach ($fruits as $fruit) {
+    echo $fruit . "<br>";
+}
+
+// Menampilkan indeks dan nilai elemen dalam array
+foreach ($fruits as $index => $fruit) {
+    echo "Indeks: " . $index . ", Nilai: " . $fruit . "<br>";
+}
+
+$dateString = "2023-05-24";
+
+// Mengkonversi string menjadi tanggal
+$date = date("d F Y", strtotime($dateString));
+
+echo "Tanggal: " . $date;
+
+
+$email = "john.doe@example.com";
+
+// Memvalidasi format email
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo "Email valid.";
+} else {
+    echo "Email tidak valid.";
+}
+
+$age = "25";
+
+// Memvalidasi angka dalam rentang tertentu
+if (filter_var($age, FILTER_VALIDATE_INT, array("options" => array("min_range" => 1, "max_range" => 100)))) {
+    echo "Umur valid.";
+} else {
+    echo "Umur tidak valid.";
+}
+
+
+$numbers = array(1, 2, 3, 4, 5);
+
+// Menggandakan setiap elemen dalam array
+$doubledNumbers = array_map(function($n) {
+    return $n * 2;
+}, $numbers);
+
+// Menampilkan hasil
+print_r($doubledNumbers);
+
+
+$numbers = array(1, 2, 3, 4, 5);
+
+// Mengecek apakah bilangan adalah ganjil
+$oddNumbers = array_filter($numbers, function($n) {
+    return $n % 2 != 0;
+});
+
+// Menampilkan hasil
+print_r($oddNumbers);
+
+
+session_start();
+
+// Memeriksa apakah pengguna telah login
+if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
+    // Redirect ke halaman login jika belum login
+    header("Location: login.php");
+    exit;
+}
+
+// Halaman yang hanya dapat diakses jika pengguna telah login
+echo "Selamat datang, " . $_SESSION["username"];
