@@ -1850,3 +1850,232 @@ $content = file_get_contents($file);
 
 // Menampilkan hasil
 echo $content;
+
+$file = "example.txt";
+$content = "Hello, world!";
+
+// Menulis string ke dalam file
+file_put_contents($file, $content);
+
+
+$file = "example.txt";
+$content = "Hello, world!";
+
+// Membuka file dalam mode tulis
+$handle = fopen($file, "w");
+
+// Menulis string ke dalam file
+fwrite($handle, $content);
+
+// Menutup file
+fclose($handle);
+
+
+$file = "example.txt";
+
+// Memeriksa apakah file ada atau tidak
+if (file_exists($file)) {
+    echo "File ada.";
+} else {
+    echo "File tidak ada.";
+}
+
+
+$directory = "path/to/directory";
+
+// Memeriksa apakah suatu path adalah direktori
+if (is_dir($directory)) {
+    echo "Ini adalah direktori.";
+} else {
+    echo "Ini bukan direktori.";
+}
+
+
+$directory = "path/to/new/directory";
+
+// Membuat direktori
+mkdir($directory, 0755);
+
+
+$directory = "path/to/directory";
+
+// Menghapus direktori kosong
+rmdir($directory);
+
+
+$file = "example.txt";
+
+// Menghapus file
+unlink($file);
+
+
+$files = glob("path/to/files/*.txt");
+
+// Menampilkan daftar file yang cocok dengan pola
+print_r($files);
+
+
+// Mengatur header Content-Type sebagai JSON
+header("Content-Type: application/json");
+
+// Menampilkan data sebagai JSON
+$data = array("name" => "John", "age" => 25);
+echo json_encode($data);
+
+
+// Inisialisasi curl
+$curl = curl_init();
+
+// Mengatur URL target
+curl_setopt($curl, CURLOPT_URL, "https://api.example.com/data");
+
+// Melakukan HTTP GET request
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($curl);
+
+// Menutup curl
+curl_close($curl);
+
+// Menampilkan respons
+echo $response;
+
+$email = "john.doe@example.com";
+
+// Memvalidasi email menggunakan filter_var
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo "Email valid.";
+} else {
+    echo "Email tidak valid.";
+}
+
+$userInput = "<script>alert('XSS attack!');</script>";
+
+// Menampilkan data pengguna dengan htmlspecialchars
+echo htmlspecialchars($userInput);
+
+$password = "secret123";
+
+// Mengenkripsi password menggunakan password_hash
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+// Menampilkan hasil
+echo $hashedPassword;
+
+$password = "secret123";
+$hashedPassword = "$2y$10$FQgDnyC3nNl4TgWLRli5Zuh0VqWWuonPY2UG/QM6K1ZTO8V6T2p6O";
+
+// Memeriksa apakah password cocok dengan hash yang tersimpan menggunakan password_verify
+if (password_verify($password, $hashedPassword)) {
+    echo "Password cocok.";
+} else {
+    echo "Password tidak cocok.";
+}
+
+// Memulai sesi
+session_start();
+
+// Menyimpan data dalam sesi
+$_SESSION["username"] = "john.doe";
+
+// Mengakses data dalam sesi
+echo "Username: " . $_SESSION["username"];
+
+// Menghapus data dalam sesi
+unset($_SESSION["username"]);
+
+// Mengakhiri sesi
+session_destroy();
+
+try {
+    // Potensi kode yang dapat menghasilkan pengecualian
+    throw new Exception("Pesan pengecualian");
+} catch (Exception $e) {
+    // Menangani pengecualian
+    echo "Pengecualian terjadi: " . $e->getMessage();
+}
+
+// Mengatur error reporting ke level E_ALL
+ini_set("error_reporting", E_ALL);
+
+// Mengatur zona waktu ke Asia/Jakarta
+ini_set("date.timezone", "Asia/Jakarta");
+
+$numbers = [1, 2, 3, 4, 5];
+
+// Menerapkan fungsi kuadrat ke setiap elemen array
+$squaredNumbers = array_map(function($number) {
+    return $number * $number;
+}, $numbers);
+
+// Menampilkan hasil
+print_r($squaredNumbers);
+
+$numbers = [1, 2, 3, 4, 5];
+
+// Menyaring elemen array yang merupakan bilangan ganjil
+$oddNumbers = array_filter($numbers, function($number) {
+    return $number % 2 != 0;
+});
+
+// Menampilkan hasil
+print_r($oddNumbers);
+
+$numbers = [1, 2, 3, 4, 5];
+
+// Mengurangi elemen array dengan operasi penjumlahan
+$sum = array_reduce($numbers, function($carry, $number) {
+    return $carry + $number;
+});
+
+// Menampilkan hasil
+echo $sum;
+
+$fruits = ['apple', 'banana', 'orange'];
+
+// Mendapatkan semua kunci (indeks) dari array
+$keys = array_keys($fruits);
+
+// Menampilkan hasil
+print_r($keys);
+
+$fruits = ['apple', 'banana', 'orange'];
+
+// Mendapatkan semua nilai dari array
+$values = array_values($fruits);
+
+// Menampilkan hasil
+print_r($values);
+
+$fruits = ['apple', 'banana', 'orange'];
+
+// Mendapatkan semua nilai dari array
+$values = array_values($fruits);
+
+// Menampilkan hasil
+print_r($values);
+
+$fruits = ['apple' => 'red', 'banana' => 'yellow', 'orange' => 'orange'];
+
+// Menukar kunci dan nilai dalam array
+$flippedArray = array_flip($fruits);
+
+// Menampilkan hasil
+print_r($flippedArray);
+
+$numbers1 = [1, 2, 3];
+$numbers2 = [4, 5, 6];
+$numbers3 = [7, 8, 9];
+
+// Menggabungkan beberapa array menjadi satu array
+$mergedArray = array_merge($numbers1, $numbers2, $numbers3);
+
+// Menampilkan hasil
+print_r($mergedArray);
+
+$numbers = [1, 2, 3, 4, 5];
+
+// Membalik urutan elemen dalam array
+$reversedArray = array_reverse($numbers);
+
+// Menampilkan hasil
+print_r($reversedArray);
