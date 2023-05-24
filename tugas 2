@@ -837,7 +837,8 @@ $waktu = date("H:i:s");
 echo "Tanggal: $tanggal<br>";
 echo "Waktu: $waktu";
 
-function faktorial1($n) {
+function faktorial1($n)
+{
     if ($n <= 1) {
         return 1;
     } else {
@@ -850,7 +851,8 @@ $hasilFaktorial = faktorial($angka);
 
 echo "Faktorial dari $angka: $hasilFaktorial";
 
-function divide($a, $b) {
+function divide($a, $b)
+{
     if ($b == 0) {
         throw new Exception("Tidak bisa membagi dengan nol!");
     }
@@ -865,37 +867,6 @@ try {
     echo "Terjadi kesalahan: " . $e->getMessage();
 }
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'vendor/autoload.php';
-
-$mail = new PHPMailer(true);
-
-try {
-    // Konfigurasi email
-    $mail->isSMTP();
-    $mail->Host = 'smtp.example.com';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'email@example.com';
-    $mail->Password = 'password';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
-
-    // Pengirim dan penerima
-    $mail->setFrom('email@example.com', 'Pengirim');
-    $mail->addAddress('recipient@example.com', 'Penerima');
-
-    // Konten email
-    $mail->Subject = 'Contoh Email';
-    $mail->Body = 'Ini adalah pesan email.';
-
-    // Kirim email
-    $mail->send();
-    echo 'Email berhasil dikirim!';
-} catch (Exception $e) {
-    echo 'Terjadi kesalahan saat mengirim email: ' . $mail->ErrorInfo;
-}
 
 $servername = "localhost";
 $username = "root";
@@ -917,7 +888,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Menampilkan hasil query
     while ($row = $result->fetch_assoc()) {
-        echo "ID: " . $row["id"]. " - Nama: " . $row["nama"]. " - Email: " . $row["email"]. "<br>";
+        echo "ID: " . $row["id"] . " - Nama: " . $row["nama"] . " - Email: " . $row["email"] . "<br>";
     }
 } else {
     echo "Tidak ada data.";
@@ -1035,7 +1006,7 @@ if (filter_var($age, FILTER_VALIDATE_INT, array("options" => array("min_range" =
 $numbers = array(1, 2, 3, 4, 5);
 
 // Menggandakan setiap elemen dalam array
-$doubledNumbers = array_map(function($n) {
+$doubledNumbers = array_map(function ($n) {
     return $n * 2;
 }, $numbers);
 
@@ -1046,7 +1017,7 @@ print_r($doubledNumbers);
 $numbers = array(1, 2, 3, 4, 5);
 
 // Mengecek apakah bilangan adalah ganjil
-$oddNumbers = array_filter($numbers, function($n) {
+$oddNumbers = array_filter($numbers, function ($n) {
     return $n % 2 != 0;
 });
 
@@ -1065,3 +1036,817 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
 
 // Halaman yang hanya dapat diakses jika pengguna telah login
 echo "Selamat datang, " . $_SESSION["username"];
+
+// Membaca data dari file CSV
+$csvFile = fopen('data.csv', 'r');
+
+while (($data = fgetcsv($csvFile)) !== false) {
+    // Menampilkan data
+    echo implode(', ', $data) . "<br>";
+}
+
+fclose($csvFile);
+
+// Menulis data ke file CSV
+$data = array(
+    array('John Doe', 'john.doe@example.com'),
+    array('Jane Smith', 'jane.smith@example.com'),
+    array('Bob Johnson', 'bob.johnson@example.com')
+);
+
+$csvFile = fopen('data.csv', 'w');
+
+foreach ($data as $row) {
+    fputcsv($csvFile, $row);
+}
+
+fclose($csvFile);
+
+
+$sourceImage = 'image.jpg';
+$thumbnailWidth = 200;
+$thumbnailHeight = 200;
+
+// Mendapatkan informasi gambar asli
+list($width, $height) = getimagesize($sourceImage);
+
+// Membuat gambar kosong untuk thumbnail
+$thumbnail = imagecreatetruecolor($thumbnailWidth, $thumbnailHeight);
+
+// Memuat gambar asli
+$source = imagecreatefromjpeg($sourceImage);
+
+// Menyalin dan menyesuaikan ukuran gambar asli ke thumbnail
+imagecopyresampled($thumbnail, $source, 0, 0, 0, 0, $thumbnailWidth, $thumbnailHeight, $width, $height);
+
+// Menyimpan thumbnail sebagai file
+imagejpeg($thumbnail, 'thumbnail.jpg');
+
+// Membebaskan memori
+imagedestroy($source);
+imagedestroy($thumbnail);
+
+echo "Thumbnail telah dibuat.";
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $targetDirectory = "uploads/";
+    $targetFile = $targetDirectory . basename($_FILES["fileToUpload"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+
+    // Memeriksa apakah file adalah gambar
+    if (isset($_POST["submit"])) {
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if ($check !== false) {
+            echo "File adalah gambar - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File bukan gambar.";
+            $uploadOk = 0;
+        }
+    }
+
+    // Memeriksa apakah file sudah ada
+    if (file_exists($targetFile)) {
+        echo "Maaf, file sudah ada.";
+        $uploadOk = 0;
+    }
+
+    // Memeriksa ukuran file
+    if ($_FILES["fileToUpload"]["size"] > 500000) {
+        echo "Maaf, file terlalu besar.";
+        $uploadOk = 0;
+    }
+
+    // Memeriksa tipe file yang diizinkan
+    if (
+        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif"
+    ) {
+        echo "Maaf, hanya file JPG, JPEG, PNG, dan GIF yang diperbolehkan.";
+        $uploadOk = 0;
+    }
+
+    // Memeriksa apakah upload berhasil
+    if ($uploadOk == 0) {
+        echo "Maaf, file gagal diunggah.";
+    } else {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFile)) {
+            echo "File " . basename($_FILES["fileToUpload"]["name"]) . " berhasil diunggah.";
+        } else {
+            echo "Maaf, terjadi kesalahan saat mengunggah file.";
+        }
+    }
+}
+
+
+function factorial($n)
+{
+    if ($n <= 1) {
+        return 1;
+    } else {
+        return $n * factorial($n - 1);
+    }
+}
+
+$number = 5;
+$factorial = factorial($number);
+
+echo "Faktorial dari $number adalah $factorial.";
+
+
+// Membuat hash password
+$password = "password123";
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+echo "Hashed Password: " . $hashedPassword . "<br>";
+
+// Memverifikasi password
+$enteredPassword = "password123";
+if (password_verify($enteredPassword, $hashedPassword)) {
+    echo "Password valid.";
+} else {
+    echo "Password tidak valid.";
+}
+
+$fileContents = file_get_contents("file.txt");
+
+echo $fileContents;
+
+$data = "Hello, World!";
+file_put_contents("file.txt", $data);
+
+// Menampilkan tanggal hari ini
+$dateToday = date("Y-m-d");
+echo "Hari ini: " . $dateToday . "<br>";
+
+// Menambahkan 7 hari ke tanggal hari ini
+$dateFuture = date("Y-m-d", strtotime("+7 days"));
+echo "Tanggal 7 hari ke depan: " . $dateFuture . "<br>";
+
+// Mengurangi 1 bulan dari tanggal hari ini
+$datePast = date("Y-m-d", strtotime("-1 month"));
+echo "Tanggal 1 bulan yang lalu: " . $datePast . "<br>";
+
+// Menampilkan waktu saat ini
+$timeNow = date("H:i:s");
+echo "Waktu sekarang: " . $timeNow;
+
+
+session_start();
+
+// Menyimpan data ke session
+$_SESSION["username"] = "john.doe";
+$_SESSION["email"] = "john.doe@example.com";
+
+// Mengakses data dari session
+$username = $_SESSION["username"];
+$email = $_SESSION["email"];
+
+// Menampilkan data session
+echo "Username: " . $username . "<br>";
+echo "Email: " . $email;
+
+
+// Redirect ke halaman lain setelah 5 detik
+header("Refresh: 5; url=halaman-lain.php");
+
+echo "Anda akan dialihkan ke halaman lain dalam 5 detik...";
+
+
+$url = "https://api.example.com/data.json";
+
+// Membaca data JSON dari URL
+$jsonData = file_get_contents($url);
+
+// Mendekode JSON menjadi array
+$data = json_decode($jsonData, true);
+
+// Menampilkan data
+foreach ($data as $item) {
+    echo "Nama: " . $item["name"] . "<br>";
+    echo "Usia: " . $item["age"] . "<br>";
+    echo "Alamat: " . $item["address"] . "<br><br>";
+}
+
+
+// Inisialisasi cURL
+$curl = curl_init();
+
+// Set URL target
+$url = "https://api.example.com/data";
+
+// Set opsi cURL
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+// Kirim permintaan GET dan ambil responsenya
+$response = curl_exec($curl);
+
+// Cek kode status HTTP
+$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+// Tutup koneksi cURL
+curl_close($curl);
+
+// Menampilkan responsenya
+if ($httpCode == 200) {
+    echo "Response: " . $response;
+} else {
+    echo "Terjadi kesalahan. Kode status HTTP: " . $httpCode;
+}
+
+
+// Informasi koneksi ke database
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "database";
+
+// Membuat koneksi
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Memeriksa koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Menjalankan query
+$sql = "SELECT * FROM users";
+$result = $conn->query($sql);
+
+// Memeriksa hasil query
+if ($result->num_rows > 0) {
+    // Menampilkan data
+    while ($row = $result->fetch_assoc()) {
+        echo "ID: " . $row["id"] . "<br>";
+        echo "Nama: " . $row["name"] . "<br>";
+        echo "Email: " . $row["email"] . "<br><br>";
+    }
+} else {
+    echo "Tidak ada data.";
+}
+
+// Menutup koneksi
+$conn->close();
+
+
+// Informasi koneksi ke database
+$dsn = "mysql:host=localhost;dbname=database";
+$username = "username";
+$password = "password";
+
+try {
+    // Membuat koneksi menggunakan PDO
+    $conn = new PDO($dsn, $username, $password);
+
+    // Menjalankan query
+    $sql = "SELECT * FROM users";
+    $stmt = $conn->query($sql);
+
+    // Memeriksa hasil query
+    if ($stmt->rowCount() > 0) {
+        // Menampilkan data
+        while ($row = $stmt->fetch()) {
+            echo "ID: " . $row["id"] . "<br>";
+            echo "Nama: " . $row["name"] . "<br>";
+            echo "Email: " . $row["email"] . "<br><br>";
+        }
+    } else {
+        echo "Tidak ada data.";
+    }
+} catch (PDOException $e) {
+    echo "Koneksi gagal: " . $e->getMessage();
+}
+
+
+session_start();
+
+// Memeriksa apakah pengguna sudah login
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("Location: login.php");
+    exit;
+}
+
+// Menampilkan halaman setelah login
+echo "Selamat datang, " . $_SESSION["username"] . "!";
+
+
+$email = "john.doe@example.com";
+
+if (preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
+    echo "Format email valid.";
+} else {
+    echo "Format email tidak valid.";
+}
+
+
+$email = "john.doe@example.com";
+
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo "Format email valid.";
+} else {
+    echo "Format email tidak valid.";
+}
+
+
+$numbers = array(1, 2, 3, 4, 5);
+
+// Mengkuadratkan setiap elemen dalam array
+$squaredNumbers = array_map(function ($number) {
+    return $number * $number;
+}, $numbers);
+
+// Menampilkan hasil
+print_r($squaredNumbers);
+
+
+$numbers = array(1, 2, 3, 4, 5);
+
+// Memfilter elemen dalam array yang lebih besar dari 3
+$filteredNumbers = array_filter($numbers, function ($number) {
+    return $number > 3;
+});
+
+// Menampilkan hasil
+print_r($filteredNumbers);
+
+
+$numbers = array(1, 2, 3, 4, 5);
+
+// Mereduksi elemen dalam array menjadi jumlah total
+$total = array_reduce($numbers, function ($carry, $number) {
+    return $carry + $number;
+}, 0);
+
+// Menampilkan hasil
+echo "Total: " . $total;
+
+
+$filename = "file.txt";
+
+if (file_exists($filename)) {
+    echo "File $filename ada.";
+} else {
+    echo "File $filename tidak ada.";
+}
+
+
+$dir = "folder";
+
+if (is_dir($dir)) {
+    echo "$dir adalah direktori.";
+} else {
+    echo "$dir bukan direktori.";
+}
+
+
+$dir = "folder";
+
+// Mendapatkan daftar file dalam direktori
+$files = scandir($dir);
+
+// Menampilkan daftar file
+foreach ($files as $file) {
+    if ($file != "." && $file != "..") {
+        echo "File: " . $file . "<br>";
+    }
+}
+
+$file = "file.txt";
+
+if (unlink($file)) {
+    echo "File $file berhasil dihapus.";
+} else {
+    echo "Gagal menghapus file $file.";
+}
+
+$dir = "folder";
+
+if (rmdir($dir)) {
+    echo "Direktori $dir berhasil dihapus.";
+} else {
+    echo "Gagal menghapus direktori $dir.";
+}
+
+$file = "file.pdf";
+
+// Set tipe konten sebagai PDF
+header("Content-Type: application/pdf");
+
+// Set header untuk melakukan download file
+header("Content-Disposition: attachment; filename=\"" . basename($file) . "\"");
+
+// Membaca file dan mengirimkannya ke output
+readfile($file);
+
+session_start();
+
+// Menghapus semua data session
+session_unset();
+
+// Menghapus session cookie
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+}
+
+$file = "file.txt";
+$data = "Hello, World!";
+
+$handle = fopen($file, "w");
+fwrite($handle, $data);
+fclose($handle);
+
+echo "Tulisan berhasil ditulis ke file $file.";
+
+$numbers = array(1, 2, 2, 3, 4, 4, 5);
+
+// Menghapus elemen duplikat dalam array
+$uniqueNumbers = array_unique($numbers);
+
+// Menampilkan hasil
+print_r($uniqueNumbers);
+
+
+$array1 = array("red", "green");
+$array2 = array("blue", "yellow");
+
+// Menggabungkan dua array menjadi satu
+$mergedArray = array_merge($array1, $array2);
+
+// Menampilkan hasil
+print_r($mergedArray);
+
+
+$student = array(
+    "name" => "John Doe",
+    "age" => 20,
+    "email" => "john.doe@example.com"
+);
+
+// Mendapatkan semua kunci dalam array
+$keys = array_keys($student);
+
+// Menampilkan hasil
+print_r($keys);
+
+
+$student = array(
+    "name" => "John Doe",
+    "age" => 20,
+    "email" => "john.doe@example.com"
+);
+
+// Mendapatkan semua nilai dalam array
+$values = array_values($student);
+
+// Menampilkan hasil
+print_r($values);
+
+
+$student = array(
+    "name" => "John Doe",
+    "age" => 20,
+    "email" => "john.doe@example.com"
+);
+
+// Membalikkan kunci dan nilai dalam array
+$flippedArray = array_flip($student);
+
+// Menampilkan hasil
+print_r($flippedArray);
+
+
+$numbers = array(1, 2, 3, 4, 5);
+
+// Mencari nilai 3 dalam array
+$key = array_search(3, $numbers);
+
+// Menampilkan hasil
+echo "Kunci: " . $key;
+
+
+$numbers = array(1, 2, 3, 4, 5);
+
+// Membalik urutan elemen dalam array
+$reversedArray = array_reverse($numbers);
+
+// Menampilkan hasil
+print_r($reversedArray);
+
+
+$numbers = array(1, 2, 3, 4, 5);
+
+// Mengambil 3 elemen pertama dalam array
+$slicedArray = array_slice($numbers, 0, 3);
+
+// Menampilkan hasil
+print_r($slicedArray);
+
+
+$fruits = array("apple", "banana", "orange");
+
+// Menambahkan elemen baru ke akhir array
+array_push($fruits, "mango");
+
+// Menampilkan hasil
+print_r($fruits);
+
+
+$fruits = array("apple", "banana", "orange");
+
+// Menghapus dan mengembalikan elemen terakhir dari array
+$lastFruit = array_pop($fruits);
+
+// Menampilkan hasil
+echo "Buah terakhir: " . $lastFruit;
+
+$fruits = array("apple", "banana", "orange");
+
+// Menghapus dan mengembalikan elemen pertama dari array
+$firstFruit = array_shift($fruits);
+
+// Menampilkan hasil
+echo "Buah pertama: " . $firstFruit;
+
+
+$fruits = array("banana", "orange");
+
+// Menambahkan elemen baru ke awal array
+array_unshift($fruits, "apple");
+
+// Menampilkan hasil
+print_r($fruits);
+
+
+$fruits = array("apple", "banana", "orange", "mango");
+
+// Memilih elemen acak dari array
+$randomFruit = $fruits[array_rand($fruits)];
+
+// Menampilkan hasil
+echo "Buah acak: " . $randomFruit;
+
+
+$numbers = array(5, 2, 4, 1, 3);
+
+// Mengurutkan array secara ascending
+sort($numbers);
+
+// Menampilkan hasil
+print_r($numbers);
+
+
+$numbers = array(5, 2, 4, 1, 3);
+
+// Mengurutkan array secara descending
+rsort($numbers);
+
+// Menampilkan hasil
+print_r($numbers);
+
+
+$studentScores = array(
+    "John" => 80,
+    "Jane" => 90,
+    "Mike" => 75
+);
+
+// Mengurutkan array asosiatif berdasarkan nilai secara ascending
+asort($studentScores);
+
+// Menampilkan hasil
+print_r($studentScores);
+
+
+$studentScores = array(
+    "John" => 80,
+    "Jane" => 90,
+    "Mike" => 75
+);
+
+// Mengurutkan array asosiatif berdasarkan nilai secara descending
+arsort($studentScores);
+
+// Menampilkan hasil
+print_r($studentScores);
+
+
+$studentScores = array(
+    "John" => 80,
+    "Jane" => 90,
+    "Mike" => 75
+);
+
+// Mengurutkan array asosiatif berdasarkan kunci secara ascending
+ksort($studentScores);
+
+// Menampilkan hasil
+print_r($studentScores);
+
+
+$studentScores = array(
+    "John" => 80,
+    "Jane" => 90,
+    "Mike" => 75
+);
+
+// Mengurutkan array asosiatif berdasarkan kunci secara descending
+krsort($studentScores);
+
+// Menampilkan hasil
+print_r($studentScores);
+
+
+$numbers = array(1, 2, 2, 3, 4, 4, 5);
+
+// Menghapus elemen duplikat numerik dalam array
+$uniqueNumbers = array_unique($numbers, SORT_NUMERIC);
+
+// Menampilkan hasil
+print_r($uniqueNumbers);
+
+
+$numbers = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+// Membagi array menjadi potongan-potongan lebih kecil
+$chunks = array_chunk($numbers, 3);
+
+// Menampilkan hasil
+print_r($chunks);
+
+
+$length = 5;
+$value = "Hello";
+
+// Membuat array dengan nilai yang sama
+$filledArray = array_fill(0, $length, $value);
+
+// Menampilkan hasil
+print_r($filledArray);
+
+
+$student = array(
+    "name" => "John Doe",
+    "age" => 20,
+    "email" => "john.doe@example.com"
+);
+
+// Memeriksa apakah kunci "age" ada dalam array
+if (array_key_exists("age", $student)) {
+    echo "Kunci \"age\" ada dalam array.";
+} else {
+    echo "Kunci \"age\" tidak ada dalam array.";
+}
+
+
+$student = array(
+    "name" => "John Doe",
+    "age" => 20,
+    "email" => "john.doe@example.com"
+);
+
+// Membalik urutan elemen dalam array sambil mempertahankan kunci
+$reversedArray = array_reverse($student, true);
+
+// Menampilkan hasil
+print_r($reversedArray);
+
+
+$array1 = array(1, 2, 3, 4, 5);
+$array2 = array(3, 4, 5, 6, 7);
+$array3 = array(5, 6, 7, 8, 9);
+
+// Mengambil elemen-elemen yang ada di semua array
+$intersectedArray = array_intersect($array1, $array2, $array3);
+
+// Menampilkan hasil
+print_r($intersectedArray);
+
+
+$array1 = array(1, 2, 3, 4, 5);
+$array2 = array(3, 4, 5, 6, 7);
+
+// Mengambil elemen-elemen yang ada di array pertama tetapi tidak ada di array kedua
+$differenceArray = array_diff($array1, $array2);
+
+// Menampilkan hasil
+print_r($differenceArray);
+
+
+$fruits = array("apple", "banana");
+
+// Menambahkan multiple elemen ke akhir array
+array_push($fruits, "orange", "mango");
+
+// Menampilkan hasil
+print_r($fruits);
+
+
+$array1 = array("name" => "John", "hobbies" => array("reading", "swimming"));
+$array2 = array("age" => 25, "hobbies" => array("coding", "gaming"));
+
+// Menggabungkan dua array secara rekursif
+$mergedArray = array_merge_recursive($array1, $array2);
+
+// Menampilkan hasil
+print_r($mergedArray);
+
+
+$string = "Hello, world!";
+
+// Menggantikan substring dalam string
+$newString = str_replace("world", "PHP", $string);
+
+// Menampilkan hasil
+echo $newString;
+
+
+$string = "Hello, world!";
+
+// Mendapatkan potongan substring dari string
+$substring = substr($string, 7, 5);
+
+// Menampilkan hasil
+echo $substring;
+
+
+$string = "Hello, world!";
+
+// Mendapatkan panjang string
+$length = strlen($string);
+
+// Menampilkan hasil
+echo "Panjang string: " . $length;
+
+
+$string = "Hello, world!";
+
+// Mencari posisi pertama kemunculan substring dalam string
+$position = strpos($string, "world");
+
+// Menampilkan hasil
+echo "Posisi substring: " . $position;
+
+
+$string = "Hello, World!";
+
+// Mengubah string menjadi lowercase
+$lowercaseString = strtolower($string);
+
+// Menampilkan hasil
+echo $lowercaseString;
+
+
+$string = "   Hello, world!   ";
+
+// Menghapus spasi ekstra di awal dan akhir string
+$trimmedString = trim($string);
+
+// Menampilkan hasil
+echo $trimmedString;
+
+
+$string = "apple,banana,orange";
+
+// Memecah string menjadi array berdasarkan delimiter (koma)
+$fruits = explode(",", $string);
+
+// Menampilkan hasil
+print_r($fruits);
+
+
+$fruits = array("apple", "banana", "orange");
+
+// Menggabungkan elemen-elemen array menjadi string dengan delimiter (koma)
+$string = implode(",", $fruits);
+
+// Menampilkan hasil
+echo $string;
+
+
+// Mendapatkan tanggal dan waktu saat ini
+$currentDateTime = date("Y-m-d H:i:s");
+
+// Menampilkan hasil
+echo "Tanggal dan Waktu saat ini: " . $currentDateTime;
+
+
+$dateString = "2023-05-24";
+
+// Mengubah string tanggal menjadi timestamp
+$timestamp = strtotime($dateString);
+
+// Menampilkan hasil
+echo "Timestamp: " . $timestamp;
+
+
+$file = "example.txt";
+
+// Membaca isi file menjadi string
+$content = file_get_contents($file);
+
+// Menampilkan hasil
+echo $content;
